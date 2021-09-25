@@ -14,7 +14,7 @@ get '/webhook' do
   return bad_request('invalid api token') unless params[:token] == ENV['APP_API_TOKEN']
  
   source_name = ENV['SOURCE_APP_NAME']
-  restart_key = "heroku-dyno-restarter:restarts:#{source_name}:all:#{error_code}"
+  restart_key = "heroku-dyno-restarter:restarts:#{source_name}:all"
 
   logger.info "Check in REDIS whether we restarted anything in past X seconds"
   if REDIS.get(restart_key)
