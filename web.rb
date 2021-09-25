@@ -11,7 +11,7 @@ get '/' do
 end
 
 get '/webhook' do
-  return status 404 unless params[:token] == ENV['APP_API_TOKEN']
+  return bad_request('invalid api token') unless params[:token] == ENV['APP_API_TOKEN']
   
   events.each do |event|
     
@@ -32,4 +32,9 @@ get '/webhook' do
 
   status 200
   'ok'
+end
+
+def bad_request(body)
+  status 400
+  body
 end
