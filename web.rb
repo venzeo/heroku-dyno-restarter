@@ -10,7 +10,7 @@ get '/' do
   status 404
 end
 
-get '/webhook' do
+post '/webhook' do
   return bad_request('invalid api token') unless params[:token] == ENV['APP_API_TOKEN']
  
   source_name = ENV['SOURCE_APP_NAME']
