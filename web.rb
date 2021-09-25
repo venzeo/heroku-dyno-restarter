@@ -11,7 +11,7 @@ get '/' do
   status 404
 end
 
-post '/webhook' do
+get '/webhook' do
   return status 404 unless params[:token] == ENV['APP_API_TOKEN']
   
   events.each do |event|
