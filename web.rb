@@ -24,7 +24,7 @@ get '/webhook' do
 
   logger.info "Saving to REDIS"
   REDIS.setex(restart_key, RESTART_INTERVAL, 1)
-  logger.info "[RESTARTING] #{source_name}:all by #{error_code}: #{message}"
+  logger.info "[RESTARTING] #{source_name}:all"
   HEROKU.dyno.restart_all(source_name)
 
   logger.info "done restarting."
