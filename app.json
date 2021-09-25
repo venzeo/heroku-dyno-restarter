@@ -2,7 +2,7 @@
   "name": "heroku-dyno-restarter",
   "keywords": [
     "heroku",
-    "Error R14 (Memory quota exceeded)"
+    "This app will restart given app's dynos. This is used in case app or heroku throws H10 or R14 (Memory quota exceeded) or any other"
   ],
   "env": {
     "APP_API_TOKEN": {
@@ -16,12 +16,16 @@
     },
     "RESTART_INTERVAL": {
       "required": true,
-      "description": "Restert interval when detect ERROR R14.",
-      "value": "600"
+      "description": "Restart interval when detect ERROR.",
+      "value": "300"
+    },
+    "SOURCE_APP_NAME": {
+      "required": true,
+      "description": "App to restart."
     }
   },
   "addons": [
-    "papertrail:choklad",
+    "papertrail",
     "rediscloud"
   ]
 }
