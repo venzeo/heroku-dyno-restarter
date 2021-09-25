@@ -33,10 +33,6 @@ GEM
     redis (4.4.0)
     rr (1.2.1)
     sinatra (2.1.0)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.1)
-      tilt (~> 2.0)
     test-unit (3.2.7)
       power_assert
     test-unit-rr (1.0.5)
