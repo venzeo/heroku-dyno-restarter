@@ -12,23 +12,22 @@ end
 
 get '/webhook' do
   return bad_request('invalid api token') unless params[:token] == ENV['APP_API_TOKEN']
-  
-  events.each do |event|
-    
-    source_name = ENV['SOURCE_APP_NAME']
-    restart_key = "heroku-dyno-restarter:restarts:#{source_name}:all:#{error_code}"
-    
-    if REDIS.get(restart_key)
-      logger.info "[skip] restart_key exists: #{restart_key} for #{REDIS.ttl(restart_key)}"
-      next
-    end
+ 
+  source_name = ENV['SOURCE_APP_NAME']
+  restart_key = "heroku-dyno-restarter:restarts:#{source_name}:all:#{error_code}"
 
-    REDIS.setex(restart_key, RESTART_INTERVAL, 1)
-    logger.info "[RESTARTING] #{source_name}:all by #{error_code}: #{message}"
-    HEROKU.dyno.restart_all(source_name)
-    
-    logger.info "done restarting."
+  logger.info "Check in REDIS whether we restarted anything in past X seconds"
+  if REDIS.get(restart_key)
+    logger.info "[skip] restart_key exists: #{restart_key} for #{REDIS.ttl(restart_key)}"
+    return bad_request('already restarted')
   end
+
+  logger.info "Saving to REDIS"
+  REDIS.setex(restart_key, RESTART_INTERVAL, 1)
+  logger.info "[RESTARTING] #{source_name}:all by #{error_code}: #{message}"
+  HEROKU.dyno.restart_all(source_name)
+
+  logger.info "done restarting."
 
   status 200
   'ok'
