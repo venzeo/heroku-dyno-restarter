@@ -65,7 +65,7 @@ DEPENDENCIES
   thin
 
 RUBY VERSION
-   ruby 2.6.6
+   ruby 3.3.5
 
 BUNDLED WITH
    1.16.1
