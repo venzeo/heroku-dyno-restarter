@@ -8,15 +8,15 @@ So, We need another approach (for now).
 # Concept
 [Heroku: R14 Error - Memory quota exceeded](https://devcenter.heroku.com/articles/error-codes#r14-memory-quota-exceeded) log
 
-↓
+↓ then
 
 [Papertrail | Add-ons | Heroku](https://addons.heroku.com/papertrail) and send alert via webhook
 
-↓
+↓ then
 
 [heroku-dyno-restarter](https://github.com/fukayatsu/heroku-dyno-restarter) (this repo)
 
-↓
+↓ then
 
 Restart web dyno via api (`heroku ps:restart web.x`)
 
